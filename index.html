@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Tutoriel-fullstack-js-5-angular : Tutoriel Fullstack JavaScript - Chapitre 5 - Angular">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Tutoriel-fullstack-js-5-angular</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/idris-maps/tutoriel-fullstack-js-5-angular">View on GitHub</a>
+
+          <h1 id="project_title">Tutoriel-fullstack-js-5-angular</h1>
+          <h2 id="project_tagline">Tutoriel Fullstack JavaScript - Chapitre 5 - Angular</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/idris-maps/tutoriel-fullstack-js-5-angular/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/idris-maps/tutoriel-fullstack-js-5-angular/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="angular" class="anchor" href="#angular" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Angular</h1>
+
+<p>Dans les chapitres précédants nous avons créés trois versions de notre application, une en <a href="link_to_do">javascript pure</a> (vanilla), une autre en utilisant une librairie externe (<a href="link_to_ad">handlebars</a>) pour représenter la vue et une dernière avec des composants <a href="link_to_do">riot</a>. Nous allons maintenant utiliser le "framework" <a href="https://angularjs.org/">Angular</a> de Google.</p>
+
+<h3>
+<a id="framework-ou-librairie" class="anchor" href="#framework-ou-librairie" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Framework ou librairie</h3>
+
+<p>Il n'y a pas de définition stricte de ce qu'est un "framework". Je n'ai pas non plus trouvé d'équivalent en français. Cadre?</p>
+
+<p>En général, la différence entre "framework" et librairie est qu'une librairie est un scripte externe qui vous aide à résoudre une tache en particulier. Handlebars dans le <a href="link_to_do">chapitre 2</a> nous aide à créer la vue par exemple. En revanche un "framework", comme celui que nous allons utiliser maintenant, représente une approche en soi. En principe tout est inclu, vous n'avez pas besoin d'autres librairies.</p>
+
+<h3>
+<a id="pourquoi-un-framework-" class="anchor" href="#pourquoi-un-framework-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pourquoi un framework ?</h3>
+
+<p>Le code en javascript pure ou modulaire (utilisant des librairies pour des tâches spécifiques) peut être structuré de manières infinies. Ce qui en soit est un avantage puisque nous pouvons utiliser l'approche que nous souhaitons. Mais si nous devons travailler en équipe, il nous faut nous mettre d'accord sur certains points pour que ça ne parte pas dans tous les sens et pour que tout le monde puisse comprendre ce qui se passe. Avec un "framework", nous avons souvent une approche et des "meilleures pratiques" définies. Du coup il y a moins de choses sur lesquelles nous devons nous mettre d'accord. Et surtout, il est plus facile de se mettre dans le code quand on intégre une nouvelle équipe.</p>
+
+<h3>
+<a id="pourquoi-angular-" class="anchor" href="#pourquoi-angular-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pourquoi Angular ?</h3>
+
+<p>Il existe une multitude de "frameworks". Si on suit un peu les nouveautés en développement javascript, il semble qu'un nouveau est créé toutes les semaines. J'ai choisi Angular parce que c'est un projet de Google, donc très populaire. Vous vous en rendez compte si vous jetez un coup d'oeil aux offres d'emploi pour des postes de développeur javascript.</p>
+
+<h3>
+<a id="mise-en-garde" class="anchor" href="#mise-en-garde" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mise en garde</h3>
+
+<p>Le milieu du développement javascript est en évolution constante. Un "framework" peut très vite être passé de mode. Il est non seulement indispensable de suivre les évolutions mais également de connaître le javascript "pure" pour pouvoir s'adapter. Il ne faut surtout pas mettre tous ces oeufs dans le même panier et devenir "développeur angular" par exemple.</p>
+
+<p>L'autre grand désavantage des "frameworks", outre l'effet de mode, est qu'ils sont composés de milliers de lignes de code. Et à moins de se plonger dedans pour comprendre exactement ce qui se passe, il y a un côté a priori magique qui peut s'avérer très frustrant quand la magie n'opère pas et qu'on n'a aucune idée pourquoi. Si nous avons au contraire écrit tout le code nous-même, il n'y a pas de magie. Tout est compréhensible.</p>
+
+<h2>
+<a id="mise-en-place" class="anchor" href="#mise-en-place" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mise en place</h2>
+
+<p>Créez un dossier <code>5.angular</code> pour le projet, initialisez NPM et téléchargez <code>angular</code>.</p>
+
+<pre><code>$ npm init
+$ npm install angular --save
+</code></pre>
+
+<p>Créez un dossier <code>public</code> et mettez y les fichiers <code>index.html</code> et <code>style.css</code> du chapitre "Mise en page". Puis créez un fichier <code>main.js</code> à la racine du projet. </p>
+
+<p>Le dossier <code>4.angular</code> devrait ressemble à ça:</p>
+
+<pre><code>4.angular
+ - node_modules
+ - public
+  index.html
+  style.css
+ main.js
+ package.json
+</code></pre>
+
+<p>Ajouter des scriptes <code>watch</code> et <code>build</code> à <code>package.json</code></p>
+
+<pre><code>{
+  "name": "5.angular",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1",
+    "watch": "watchify main.js -o public/script.js",
+    "build": "browserify main.js -o public/script.js | minify public/script.js -o public/script.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.5"
+  }
+}
+</code></pre>
+
+<p>Ouvrez <code>public/index.html</code>, nous avons trois élément de liste dont on ne va garder que le dernier (celui qui est à faire et en cours de modification). Nous allons également ajouter une balise <code>&lt;script&gt;</code> à la fin du corps du document.</p>
+
+<pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"/&gt;
+  &lt;title&gt;Angular&lt;/title&gt;
+  &lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;div id="contenu"&gt;
+   &lt;h1&gt;À faire&lt;/h1&gt;
+   &lt;div id="liste"&gt;
+
+    &lt;!-- l'élément de liste que nous allons garder --&gt;
+
+    &lt;div class="liste-element a-faire"&gt; 
+    &lt;!-- peut avoir la classe "fait" à la place de "a-faire" --&gt;
+
+     &lt;div class="liste-element-info"&gt;
+      &lt;div class="liste-element-texte"&gt;
+       &lt;p&gt;En cours de modification&lt;/p&gt; 
+       &lt;!-- ce sera la clé "text" de l'objet du dictionnaire "data" --&gt;
+
+      &lt;/div&gt;
+      &lt;div class="liste-element-modif"&gt;
+       &lt;span class="glyphicon glyphicon-pencil"&gt;&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class="liste-element-statut"&gt;
+       &lt;span class="glyphicon glyphicon-ok"&gt;&lt;/span&gt;
+       &lt;!-- peut avoir la classe "glyphicon-remove" à la place de "glyphicon-ok" --&gt;
+      &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;!-- toute la &lt;div&gt; qui suit ne sera affichée que si l'élément est en cours de mise à jour --&gt;
+     &lt;div class="liste-element-maj"&gt;
+      &lt;div class="liste-element-maj-input"&gt;
+       &lt;input class="form-control" id="liste-element-maj-input" type="text"&gt;
+      &lt;/div&gt;
+      &lt;div class="liste-element-maj-bouton"&gt;
+       &lt;button class="btn btn-primary" id="liste-element-maj-bouton"&gt;OK&lt;/button&gt;
+      &lt;/div&gt;
+     &lt;/div&gt;
+    &lt;/div&gt;
+
+   &lt;/div&gt;
+
+   &lt;div id="formulaire"&gt;
+    &lt;div class="ajouter"&gt;
+     &lt;div class="ajouter-input"&gt;
+      &lt;input id="ajouter-input" class="form-control" placeholder="À faire" type="text"&gt;
+     &lt;/div&gt;
+     &lt;div class="ajouter-bouton"&gt;
+      &lt;button id="ajouter-bouton" class="btn btn-primary"&gt;Ajouter&lt;/button&gt;
+     &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id="supprimer-fait"&gt;
+     &lt;button id="supprimer-fait-bouton" class="btn btn-danger"&gt;Supprimer ce qui a été fait&lt;/button&gt;
+    &lt;/div&gt;
+   &lt;/div&gt;
+
+  &lt;/div&gt;
+
+  &lt;!-- la balise &lt;script&gt; si dessous est nouvelle --&gt;
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+
+ &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<h2>
+<a id="angular-1" class="anchor" href="#angular-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Angular</h2>
+
+<h3>
+<a id="ng-app" class="anchor" href="#ng-app" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ng-app</h3>
+
+<p>Angular se présente comme une extension de HTML. Une grande partie de la logique de présentation sera écrite directemment dans <code>index.html</code>. Avant de commencer il faut donc déclarer que le document est une application angular. Nous allons le faire dans la balise <code>&lt;body&gt;</code>:</p>
+
+<pre><code>&lt;body ng-app="aFaire"&gt;
+</code></pre>
+
+<p>Dans <code>main.js</code> ajoutez <code>angular</code> et créez une variable <code>app</code> qui représentera l'application.</p>
+
+<pre><code>var angular = require('angular')
+var app = angular.module('aFaire', [])
+</code></pre>
+
+<h3>
+<a id="ng-controller" class="anchor" href="#ng-controller" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ng-controller</h3>
+
+<p>Toujours dans <code>main.js</code>, créez un controleur angular appelé <code>aFaireCtrl</code></p>
+
+<pre><code>var angular = require('angular')
+var app = angular.module('aFaire', [])
+
+app.controller('aFaireCtrl', function() {}) // &lt;-- nouveau
+</code></pre>
+
+<p>Dans <code>public/index.html</code> nous devons dire à quelle partie du document nous souhaitons lier le controleur. Ce sera la <code>&lt;div id="contenu"&gt;</code></p>
+
+<pre><code>&lt;div id="contenu" ng-controller="aFaireCtrl"&gt;
+</code></pre>
+
+<h3>
+<a id="scope" class="anchor" href="#scope" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>$scope</h3>
+
+<p>Dans angular, <code>$scope</code> représente le contexte du modèle. Comme <code>this</code> dans les modèle des chapitres précédants. Nous allons attacher un dictionnaire <code>data</code> au contexte avec les mêmes données qu'auparavant.</p>
+
+<pre><code>var angular = require('angular')
+var app = angular.module('aFaire', [])
+
+app.controller('aFaireCtrl', function() { // &lt;-- ajouter $scope comme argument de la fonction
+ $scope.data = [
+  {text: 'Manger', fait: true},
+  {text: 'Dormir', fait: false}
+ ] // &lt;-- le dictionnaire "data"
+})
+</code></pre>
+
+<h3>
+<a id="ng-repeat" class="anchor" href="#ng-repeat" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ng-repeat</h3>
+
+<p>Nous souhaitons créer un élément de liste par objet du dictionnaire <code>data</code>. Pour cela nous allons utiliser <code>ng-repeat</code> sur la partie que nous souhaitons répéter dans <code>public/index.html</code>.</p>
+
+<pre><code>&lt;div class="liste-element a-faire" ng-repeat="el in data"&gt;
+</code></pre>
+
+<p><code>el</code> représentera un élément de la liste. Pour ajouter le <code>text</code> de chaque objet nous allons utiliser <code>{{</code> et <code>}}</code> comme dans handlebars. Remplacez <code>En cours de modification</code> par <code>{{el.text}}</code></p>
+
+<pre><code>&lt;p&gt;{{el.text}}&lt;/p&gt;
+</code></pre>
+
+<p>Vous pouvez voir si ça fonctionne en lançant le script <code>watch</code> avec le terminal.</p>
+
+<pre><code>$ npm run watch
+</code></pre>
+
+<h3>
+<a id="ng-class" class="anchor" href="#ng-class" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ng-class</h3>
+
+<p>Les deux éléments de la liste sont maintenant affichés. Par contre il ne sont pas représentés différemment selon qu'ils soient <code>fait</code> ou non. Il nous faut changer la classe en fonction de la clé <code>fait</code>. Pour cela nous utilisons <code>ng-class</code>.</p>
+
+<p>La syntaxe est la suivante: </p>
+
+<pre><code>ng-class="{true: 'classeSiVrai', false: 'classeSiFaux'}[clé]"
+</code></pre>
+
+<p>Dans notre exemple nous souhaitons que la <code>&lt;div class="liste-element"&gt;</code> ait une classe <code>fait</code> si c'est le cas sinon une classe <code>a-faire</code>.</p>
+
+<pre><code>&lt;div ng-class="{true: 'liste-element fait', false: 'liste-element a-faire'}[el.fait]" ng-repeat="el in data"&gt;
+</code></pre>
+
+<p>La même chose pour l'icône du bouton "basculer-fait"</p>
+
+<pre><code>&lt;span ng-class="{true: 'glyphicon glyphicon-remove', false: 'glyphicon glyphicon-ok'}[el.fait]"&gt;&lt;/span&gt;
+</code></pre>
+
+<h3>
+<a id="ng-show" class="anchor" href="#ng-show" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ng-show</h3>
+
+<p>Nous souhaitons afficher le formulaire de mise à jour si l'élément est en cours de modification. Pour cela nous allons utiliser <code>ng-show</code> qui ne montrera la balise que si l'expression qu'on lui passe est <code>true</code>.</p>
+
+<pre><code>&lt;div class="liste-element-maj" ng-show="el.maj"&gt;
+</code></pre>
+
+<h2>
+<a id="modifier-le-modèle" class="anchor" href="#modifier-le-mod%C3%A8le" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Modifier le modèle</h2>
+
+<h3>
+<a id="ajouter-un-élément-de-liste" class="anchor" href="#ajouter-un-%C3%A9l%C3%A9ment-de-liste" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ajouter un élément de liste</h3>
+
+<p>Comme dans le chapitre "Vanilla", nous allons ajouter des méthodes au modèle qui nous permettent de le modifier.</p>
+
+<p>Dans <code>main.js</code>, créez une méthode <code>ajouter</code> qui ajoutera un élément à la liste</p>
+
+<pre><code>app.controller('aFaireCtrl', function() {
+ $scope.data = [
+  {text: 'Manger', fait: true},
+  {text: 'Dormir', fait: true}
+ ]
+ $scope.ajouter = fonction() {
+
+ }
+})
+</code></pre>
+
+<p>En javascript pure nous aurions un controleur qui prend la valeur de la balise <code>&lt;input id="machin"&gt;</code>. Dans les chapitres précédants, nous utilisions <code>document.getElementById('machin').value</code> pour avoir cette valeur. Dans angular nous utilisons <code>ng-model</code> pour lier un élément au <code>$scope</code>.</p>
+
+<p>Dans <code>public/index.html</code></p>
+
+<pre><code>&lt;input id="ajouter-input" class="form-control" placeholder="À faire" type="text" ng-model="nouveau"&gt;
+</code></pre>
+
+<p>Maintenant la valeur de cette balise <code>&lt;input&gt;</code> est liée au <code>$scope</code> en tant que <code>$scope.nouveau</code>. Revenons à <code>main.js</code> et terminons la méthode <code>ajouter</code></p>
+
+<pre><code>$scope.ajouter = function() {
+console.log($scope.nouveau)
+ if($scope.nouveau) {
+  $scope.data.push({text: $scope.nouveau, fait: false})
+  $scope.nouveau = ''
+ }
+}
+</code></pre>
+
+<p>Si <code>$scope.nouveau</code> n'est pas null, ajouter sa valeur à la clé <code>text</code> d'un nouvel objet qui sera ajouté au dictionnaire <code>$scope.data</code>. Puis remettre <code>$scope.nouveau</code> à zéro.</p>
+
+<p>Nous devons maintenant ajouter un controleur pour qu'un nouvel élément soit ajouté quand le bouton <code>Ajouter</code> est clické. Avec angular nous le faisons directement dans le HTML avec <code>ng-click</code>:</p>
+
+<pre><code>&lt;button id="ajouter-bouton" class="btn btn-primary" ng-click="ajouter()"&gt;Ajouter&lt;/button&gt;
+</code></pre>
+
+<p>Si le script <code>watch</code> tourne encore dans le terminal vous pouvez essayer d'ajouter un élément à la liste dans le navigateur.</p>
+
+<h3>
+<a id="supprimer-ce-qui-est-fait" class="anchor" href="#supprimer-ce-qui-est-fait" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Supprimer ce qui est fait</h3>
+
+<p>Dans <code>main.js</code> ajoutez la méthode <code>supprimerFait</code></p>
+
+<pre><code> $scope.supprimerFait = function() {
+  var aGarder = []
+  $scope.data.forEach(function(o) {
+   if(!o.fait) { aGarder.push(o) } 
+  })
+  $scope.data = aGarder
+ }
+</code></pre>
+
+<p>Une variable <code>aGarder</code> pour les objets à garder. Pour chaque objet du dictionnaire <code>$scope.data</code> si l'objet n'est pas fait le mettre dans <code>aGarder</code>. Remplacer <code>$scope.data</code> par <code>aGarder</code>.</p>
+
+<p>Dans <code>public/index.html</code></p>
+
+<pre><code>&lt;button id="supprimer-fait-bouton" class="btn btn-danger" ng-click="supprimerFait()"&gt;
+ Supprimer ce qui a été fait
+&lt;/button&gt;
+</code></pre>
+
+<h3>
+<a id="basculer-fait" class="anchor" href="#basculer-fait" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basculer "fait"</h3>
+
+<p>Pour marquer un élément comme <code>fait</code> s'il ne l'est pas et inversement, ajoutons une méthode <code>basculerFait</code> dans <code>main.js</code>.</p>
+
+<pre><code>$scope.basculerFait = function(index) {
+  if($scope.data[index].fait) {
+   $scope.data[index].fait = false
+  } else {
+   $scope.data[index].fait = true
+  }
+ }
+}
+</code></pre>
+
+<p>La fonction prend un argument <code>index</code> pour trouver l'objet dans le dictionnaire. S'il est marqué comme <code>fait</code>, <code>fait</code> devient <code>false</code>. Sinon il devient <code>true</code>.</p>
+
+<p>Dans <code>public/index.html</code> nous devons faire en sorte que quand <code>&lt;div class="liste-element-statut"&gt;</code> est clické, l'objet soit modifié.</p>
+
+<pre><code>&lt;div class="liste-element-statut" ng-click="basculerFait($index)"&gt;
+</code></pre>
+
+<p>Angular représente l'index d'une boucle <code>ng-repeat</code> par l'expression <code>$index</code>, nous la passons à la fonction <code>basculerFait()</code>.</p>
+
+<h3>
+<a id="basculer-en-cours-de-mise-à-jour" class="anchor" href="#basculer-en-cours-de-mise-%C3%A0-jour" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basculer "en cours de mise à jour"</h3>
+
+<p>Pour voir le formulaire de mise à jour il faut ajouter une clé <code>maj</code> à l'objet clické.</p>
+
+<p>Dans <code>main.js</code></p>
+
+<pre><code>$scope.basculerMaj = function(index) {
+ if($scope.data[index].maj) { $scope.data[index].maj = undefined }
+ else {
+  $scope.data.forEach(function(o) { if(o.maj) { o.maj = undefined } })
+  $scope.data[index].maj = true
+ }
+}
+</code></pre>
+
+<p>Dans <code>public/index.html</code></p>
+
+<pre><code>&lt;div class="liste-element-modif" ng-click="basculerMaj($index)"&gt;
+</code></pre>
+
+<p>Comme nous avons mis <code>ng-show="el.fait"</code> à <code>&lt;div class="liste-element-maj"&gt;</code>, cette balise sera visible si la clé <code>maj</code> de l'élément de liste est <code>true</code>.</p>
+
+<h3>
+<a id="mettre-à-jour-un-élément-de-la-liste" class="anchor" href="#mettre-%C3%A0-jour-un-%C3%A9l%C3%A9ment-de-la-liste" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mettre à jour un élément de la liste</h3>
+
+<p>Dans <code>public/index.html</code>, nous ajoutons <code>ng-model="nouveauText"</code> à la balise <code>&lt;input&gt;</code> correspondante.</p>
+
+<pre><code>&lt;input class="form-control" id="liste-element-maj-input" type="text" ng-model="nouveauText"&gt;
+</code></pre>
+
+<p>Et <code>ng-click</code> au bouton pour appeler la méthode <code>mettreAJour</code> et lui passer l'index</p>
+
+<pre><code>&lt;button class="btn btn-primary" id="liste-element-maj-bouton" ng-click="mettreAJour($index)"&gt;
+</code></pre>
+
+<p>Dans <code>main.js</code>, nous créeons une méthode <code>mettreAJour</code></p>
+
+<pre><code>$scope.mettreAJour = function(index) {
+ if(this.nouveauText) {
+  $scope.data[index].text = this.nouveauText
+  $scope.data[index].maj = undefined
+  this.nouveauText = ''
+ }
+}
+</code></pre>
+
+<p>Ici nous utilisons <code>this.nouveauText</code> et non pas <code>$scope.nouveauText</code>. Le contexte <code>this</code> dans ce cas est l'élément de la liste alors que <code>$scope</code> est le contexte de <code>ng-controller="aFaireCtrl"</code>, c'est à dire de toute la liste. </p>
+
+<p>Si <code>this.nouveau</code> n'est pas null, la clé <code>text</code> de l'objet avec cet index dans <code>$scope.data</code> prend la valeur <code>this.nouveau</code>, la clé <code>maj</code> de l'objet devient indéfinie pour cacher le formulaire et <code>this.nouveau</code> est remis à zéro.</p>
+
+<h3>
+<a id="construire-lapplication" class="anchor" href="#construire-lapplication" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Construire l'application</h3>
+
+<p>Si tout marche comme il faut, arrêtez le scripte <code>watch</code> et lancez <code>build</code></p>
+
+<pre><code>$ npm run build
+</code></pre>
+
+<p>Et l'appilcation... ne marche plus.</p>
+
+<p>Ouvrez la console du navigateur. Nous avons un message d'erreur incompréhensible. Il se trouve que Angular est sensible à la minification. Il nous faut créer une fonction <code>aFaireCtrl()</code> avec le contenu de notre contrôleur. Puis nous injectons <code>$scope</code> avec <code>$inject</code> pour finallement passer la fonction à <code>app.controller()</code>.</p>
+
+<pre><code>var angular = require('angular')
+var app = angular.module('aFaire', [])
+
+// la fonction aFaireCtrl()
+function aFaireCtrl($scope) {
+ $scope.data = [
+  {text: 'Manger', fait: true},
+  {text: 'Dormir', fait: false}
+ ]
+
+ $scope.ajouter = function() {
+  if($scope.nouveau) {
+   $scope.data.push({text: $scope.nouveau, fait: false})
+   $scope.nouveau = ''
+  }
+ }
+
+ $scope.supprimerFait = function() {
+  var aGarder = []
+  $scope.data.forEach(function(o) {
+   if(!o.fait) { aGarder.push(o) } 
+  })
+  $scope.data = aGarder
+ }
+
+ $scope.basculerFait = function(index) {
+  if($scope.data[index].fait) {
+   $scope.data[index].fait = false
+  } else {
+   $scope.data[index].fait = true
+  }
+ }
+
+ $scope.basculerMaj = function(index) {
+  if($scope.data[index].maj) { $scope.data[index].maj = undefined }
+  else {
+   $scope.data.forEach(function(o) { if(o.maj) { o.maj = undefined } })
+   $scope.data[index].maj = true
+  }
+ }
+
+ $scope.mettreAJour = function(index) {
+  if(this.nouveauText) {
+   $scope.data[index].text = this.nouveauText
+   $scope.data[index].maj = undefined
+   this.nouveauText = ''
+  }
+ }
+}
+
+// injecter $scope avec $inject
+aFaireCtrl.$inject = ['$scope']
+
+// passer la fonction aFaireCtrl au contrôleur
+app.controller('aFaireCtrl', ['$scope', aFaireCtrl])
+</code></pre>
+
+<p>Relancez <code>$ npm run build</code>.</p>
+
+<p>Cette fois ça marche. On vient de voir une des raisons pour lesquelles il faut faire attention avec les "frameworks" comme angular. Comme nous ne connaissons pas exactement ce que fait le "framework", on se retrouve parfois dans des situations où la magie n'opère pas. En plus le message d'erreur n'était pas d'une grande utilité. Heureusement que c'est un "framework" populaire. Quelqu'un est certainement tombé sur le même problème que vous, vous trouverez la réponse par une rapide recherche sur internet.</p>
+
+<h2>
+<a id="conclusion" class="anchor" href="#conclusion" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Conclusion</h2>
+
+<p>Nous avons la même application que dans les deux chapitres précédants. Il nous a fallu écrire beaucoup moins de code pour créer cette application qu'en le faisant en javascript "pure". Certains considèreront que cette manière de faire est plus expressive. D'autres que le mélange de logique et de présentation dans le HTML est une hérésie. C'est subjectif. Mais il est assez facile de voir ce qui se passe en un coup d'oeil au fichier HTML.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Tutoriel-fullstack-js-5-angular maintained by <a href="https://github.com/idris-maps">idris-maps</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
