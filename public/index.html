@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Angular</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body ng-app="aFaire">
+  <div id="contenu" ng-controller="aFaireCtrl">
+   <h1>À faire</h1>
+   <div id="liste">
+
+    <div ng-class="{true: 'liste-element fait', false: 'liste-element a-faire'}[el.fait]" ng-repeat="el in data">
+
+     <div class="liste-element-info">
+      <div class="liste-element-texte">
+       <p>{{el.text}}</p> 
+      </div>
+      <div class="liste-element-modif" ng-click="basculerMaj($index)">
+       <span class="glyphicon glyphicon-pencil"></span>
+      </div>
+      <div class="liste-element-statut" ng-click="basculerFait($index)">
+       <span ng-class="{true: 'glyphicon glyphicon-remove', false: 'glyphicon glyphicon-ok'}[el.fait]"></span>
+      </div>
+     </div>
+
+     <div class="liste-element-maj" ng-show="el.maj">
+      <div class="liste-element-maj-input">
+       <input class="form-control" id="liste-element-maj-input" type="text" ng-model="nouveauText">
+      </div>
+      <div class="liste-element-maj-bouton">
+       <button class="btn btn-primary" id="liste-element-maj-bouton" ng-click="mettreAJour($index)">OK</button>
+      </div>
+     </div>
+    </div>
+
+   </div>
+
+   <div id="formulaire">
+    <div class="ajouter">
+     <div class="ajouter-input">
+      <input id="ajouter-input" class="form-control" placeholder="À faire" type="text" ng-model="nouveau">
+     </div>
+     <div class="ajouter-bouton">
+      <button id="ajouter-bouton" class="btn btn-primary" ng-click="ajouter()">Ajouter</button>
+     </div>
+    </div>
+    <div id="supprimer-fait">
+     <button id="supprimer-fait-bouton" class="btn btn-danger" ng-click="supprimerFait()">
+      Supprimer ce qui a été fait
+     </button>
+    </div>
+   </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+ </body>
+</html>
+
